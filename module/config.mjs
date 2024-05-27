@@ -196,6 +196,13 @@ DND5E.skills = {
     reference: "Compendium.dnd5e.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.mqVZ2fz0L7a9VeKJ",
     icon: "icons/magic/control/mouth-smile-deception-purple.webp"
   },
+  gos: {
+    label: "DND5E.SkillGos",
+    ability: "int",
+    fullKey: "gossip",
+    reference: "Compendium.dnd5e.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.mqVZ2fz0L7a9VeKJ",
+    icon: "icons/magic/control/mouth-smile-deception-purple.webp"
+  },
   his: {
     label: "DND5E.SkillHis",
     ability: "int",
@@ -223,6 +230,13 @@ DND5E.skills = {
     fullKey: "investigation",
     reference: "Compendium.dnd5e.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.Y7nmbQAruWOs7WRM",
     icon: "icons/tools/scribal/magnifying-glass.webp"
+  },
+  lin: {
+    label: "DND5E.SkillLin",
+    ability: "int",
+    fullKey: "linguistics",
+    reference: "Compendium.dnd5e.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.mqVZ2fz0L7a9VeKJ",
+    icon: "icons/magic/control/mouth-smile-deception-purple.webp"
   },
   med: {
     label: "DND5E.SkillMed",
@@ -286,6 +300,13 @@ DND5E.skills = {
     fullKey: "survival",
     reference: "Compendium.dnd5e.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.t3EzDU5b9BVAIEVi",
     icon: "icons/magic/fire/flame-burning-campfire-yellow-blue.webp"
+  },
+  Tactics: {
+    label: "DND5E.SkillTac",
+    ability: "wis",
+    fullKey: "tactics",
+    reference: "Compendium.dnd5e.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.mqVZ2fz0L7a9VeKJ",
+    icon: "icons/magic/control/mouth-smile-deception-purple.webp"
   }
 };
 preLocalize("skills", { key: "label", sort: true });
@@ -447,7 +468,9 @@ preLocalize("toolProficiencies", { sort: true });
  */
 DND5E.toolIds = {
   alchemist: "SztwZhbhZeCqyAes",
+  basic: "Y9S75go1hLMXUD48",
   bagpipes: "yxHi57T5mmVt0oDr",
+  barber: "Y9S75go1hLMXUD48",
   brewer: "Y9S75go1hLMXUD48",
   calligrapher: "jhjo20QoiD5exf09",
   card: "YwlHI3BVJapz4a3E",
@@ -460,6 +483,10 @@ DND5E.toolIds = {
   disg: "IBhDAr7WkhWPYLVn",
   drum: "69Dpr25pf4BjkHKb",
   dulcimer: "NtdDkjmpdIMiX7I2",
+  enchanter: "Y9S75go1hLMXUD48",
+  engineer: "Y9S75go1hLMXUD48",
+  farming: "Y9S75go1hLMXUD48",
+  fishing: "Y9S75go1hLMXUD48",
   flute: "eJOrPcAz9EcquyRQ",
   forg: "cG3m4YlHfbQlLEOx",
   glassblower: "rTbVrNcwApnuTz5E",
@@ -467,19 +494,28 @@ DND5E.toolIds = {
   horn: "aa9KuBy4dst7WIW9",
   jeweler: "YfBwELTgPFHmQdHh",
   leatherworker: "PUMfwyVUbtyxgYbD",
+  lumberjack: "Y9S75go1hLMXUD48",
   lute: "qBydtUUIkv520DT7",
   lyre: "EwG1EtmbgR3bM68U",
   mason: "skUih6tBvcBbORzA",
+  merchant: "Y9S75go1hLMXUD48",
+  miner: "Y9S75go1hLMXUD48",
   navg: "YHCmjsiXxZ9UdUhU",
   painter: "ccm5xlWhx74d6lsK",
   panflute: "G5m5gYIx9VAUWC3J",
   pois: "il2GNi8C0DvGLL9P",
   potter: "hJS8yEVkqgJjwfWa",
+  rending: "Y9S75go1hLMXUD48",
+  ritimpl: "Y9S75go1hLMXUD48",
   shawm: "G3cqbejJpfB91VhP",
   smith: "KndVe2insuctjIaj",
+  surgery: "Y9S75go1hLMXUD48",
+  tamer: "Y9S75go1hLMXUD48",
   thief: "woWZ1sO5IUVGzo58",
   tinker: "0d08g1i5WXnNrCNA",
+  trapper: "Y9S75go1hLMXUD48",
   viol: "baoe3U5BfMMMxhCU",
+  waxworker: "Y9S75go1hLMXUD48",
   weaver: "ap9prThUB2y9lDyj",
   woodcarver: "xKErqkLo4ASYr5EP"
 };
@@ -1467,6 +1503,9 @@ DND5E.lootTypes = {
   resource: {
     label: "DND5E.Loot.Resource"
   },
+  reagent: {
+    label: "DND5E.Loot.Reagent"
+  },
   treasure: {
     label: "DND5E.Loot.Treasure"
   }
@@ -1616,7 +1655,13 @@ DND5E.damageTypes = {
     icon: "systems/dnd5e/icons/svg/damage/thunder.svg",
     reference: "Compendium.dnd5e.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.iqsmMHk7FSpiNkQy",
     color: new Color(0x708090)
-  }
+  },
+  ballistic: {
+    label: "DND5E.DamageBallistic",
+    icon: "systems/dnd5e/icons/svg/damage/piercing.svg",
+    reference: "Compendium.dnd5e.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.95agSnEGTdAmKhyC",
+    color: new Color(0xFF4500)
+  },
 };
 preLocalize("damageTypes", { keys: ["label"], sort: true });
 
@@ -2480,7 +2525,8 @@ DND5E.proficiencyLevels = {
   0: "DND5E.NotProficient",
   1: "DND5E.Proficient",
   0.5: "DND5E.HalfProficient",
-  2: "DND5E.Expertise"
+  2: "DND5E.Expertise",
+  3: "DND5E.Master"
 };
 preLocalize("proficiencyLevels");
 
