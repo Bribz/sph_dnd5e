@@ -585,7 +585,8 @@ export default class ActorSheet5e extends ActorSheetMixin(ActorSheet) {
       0: '<i class="far fa-circle"></i>',
       0.5: '<i class="fas fa-adjust"></i>',
       1: '<i class="fas fa-check"></i>',
-      2: '<i class="fas fa-check-double"></i>'
+      2: '<i class="fas fa-check-double"></i>',
+      3: '<i class="fas fa-award"></i>'
     };
     return icons[level] || icons[0];
   }
@@ -784,19 +785,26 @@ export default class ActorSheet5e extends ActorSheetMixin(ActorSheet) {
    * @returns {Promise|void}  Updated data for this actor after changes are applied.
    * @protected
    */
-  _onCycleProficiency(event) {
+  _onCycleProficiency(event) { // ????
     if ( event.currentTarget.classList.contains("disabled") ) return;
     event.preventDefault();
     const parent = event.currentTarget.closest(".proficiency-row");
     const field = parent.querySelector('[name$=".value"]');
     const {property, key} = parent.dataset;
+    console.log(key);
+    console.log(property);
+    console.log(this.actor._source.system[property]);
     const value = this.actor._source.system[property]?.[key]?.value ?? 0;
+    console.log('value: ' + this.actor._source.system[property]?.[key]?.value);
 
     // Cycle to the next or previous skill level.
-    const levels = [0, 1, .5, 2];
+    const levels = [0, 1, .5, 2, 3];
     const idx = levels.indexOf(value);
-    const next = idx + (event.type === "contextmenu" ? 3 : 1);
+    const next = idx + (event.type === "contextmenu" ? 4 : 1); // Propblem lines here. Modulo acting funny
+   
     field.value = levels[next % levels.length];
+    this.actor._source.system[property][key].value = field.value;
+    console.log(`idx: ${idx} \nnext: ${next} \nmodulo:${next%levels.length} \nvalue:${field.value}`);
 
     // Update the field value and save the form.
     return this._onSubmit(event);

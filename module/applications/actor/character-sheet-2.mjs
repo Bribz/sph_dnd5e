@@ -56,7 +56,8 @@ export default class ActorSheet5eCharacter2 extends ActorSheet5eCharacter {
     0: "none",
     0.5: "half",
     1: "full",
-    2: "double"
+    2: "double",
+    3: "triple"
   };
 
   /**

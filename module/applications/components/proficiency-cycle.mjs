@@ -139,7 +139,7 @@ export default class ProficiencyCycleElement extends AdoptedStyleSheetMixin(HTML
     if ( !["ability", "skill"].includes(value) ) throw new Error("Type must be 'ability' or 'skill'.");
     this.setAttribute("type", value);
     this.#internals.ariaValueMin = 0;
-    this.#internals.ariaValueMax = value === "ability" ? 1 : 2;
+    this.#internals.ariaValueMax = value === "ability" ? 1 : 3;
     this.#internals.ariaValueStep = value === "ability" ? 1 : 0.5;
   }
 
@@ -150,7 +150,7 @@ export default class ProficiencyCycleElement extends AdoptedStyleSheetMixin(HTML
    * @type {number[]}
    */
   get validValues() {
-    return this.type === "ability" ? [0, 1] : [0, 1, .5, 2];
+    return this.type === "ability" ? [0, 1] : [0, 1, .5, 2, 3];
   }
 
   /* -------------------------------------------- */
@@ -248,6 +248,7 @@ export default class ProficiencyCycleElement extends AdoptedStyleSheetMixin(HTML
     const levels = this.validValues;
     const idx = levels.indexOf(this.value);
     this.value = levels[(idx + (up ? 1 : levels.length - 1)) % levels.length];
+    console.log(`new_value: ${this.value}`);
     this.dispatchEvent(new Event("change"));
   }
 
