@@ -39,6 +39,7 @@ const { SchemaField, NumberField, StringField, BooleanField, ArrayField, Integer
  * @property {number} attributes.death.success            Number of successful death saves.
  * @property {number} attributes.death.failure            Number of failed death saves.
  * @property {number} attributes.exhaustion               Number of levels of exhaustion.
+ * @property {number} attributes.frightened               Number of levels of frightened.
  * @property {number} attributes.inspiration              Does this character have inspiration?
  * @property {object} details
  * @property {Item5e|string} details.background           Character's background item or name.
@@ -225,6 +226,7 @@ export default class CharacterData extends CreatureTemplate {
     this.prepareAbilities({ rollData, originalSaves });
     AttributesFields.prepareEncumbrance.call(this, rollData);
     AttributesFields.prepareExhaustionLevel.call(this);
+    AttributesFields.prepareFrightenedLevel.call(this);
     AttributesFields.prepareMovement.call(this);
     AttributesFields.prepareConcentration.call(this, rollData);
     TraitsFields.prepareResistImmune.call(this);

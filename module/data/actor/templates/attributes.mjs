@@ -52,6 +52,7 @@ export default class AttributesFields {
    * @property {string} senses.special          Description of any special senses or restrictions.
    * @property {string} spellcasting            Primary spellcasting ability.
    * @property {number} exhaustion              Creature's exhaustion level.
+   * @property {number} frightened              Creature's frightened level.
    * @property {object} concentration
    * @property {string} concentration.ability   The ability used for concentration saving throws.
    * @property {string} concentration.bonus     The bonus provided to concentration saving throws.
@@ -74,6 +75,9 @@ export default class AttributesFields {
       }),
       exhaustion: new foundry.data.fields.NumberField({
         required: true, nullable: false, integer: true, min: 0, initial: 0, label: "DND5E.Exhaustion"
+      }),
+      frightened: new foundry.data.fields.NumberField({
+        required: true, nullable: false, integer: true, min: 0, initial: 0, label: "DND5E.Frightened"
       }),
       concentration: new RollConfigField({
         ability: "",
@@ -222,6 +226,18 @@ export default class AttributesFields {
     const exhaustion = this.parent.effects.get(ActiveEffect5e.ID.EXHAUSTION);
     const level = exhaustion?.getFlag("dnd5e", "exhaustionLevel");
     this.attributes.exhaustion = Number.isFinite(level) ? level : 0;
+  }
+
+  /* -------------------------------------------- */
+
+   /**
+   * Adjust frightened level based on Active Effects.
+   * @this {CharacterData|NPCData}
+   */
+   static prepareFrightenedLevel() {
+    const frightened = this.parent.effects.get(ActiveEffect5e.ID.FRIGHTENED);
+    const level = frightened?.getFlag("dnd5e", "frightenedLevel");
+    this.attributes.frightened = Number.isFinite(level) ? level : 0;
   }
 
   /* -------------------------------------------- */

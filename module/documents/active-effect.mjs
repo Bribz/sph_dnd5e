@@ -12,7 +12,8 @@ export default class ActiveEffect5e extends ActiveEffect {
    */
   static ID = {
     ENCUMBERED: staticID("dnd5eencumbered"),
-    EXHAUSTION: staticID("dnd5eexhaustion")
+    EXHAUSTION: staticID("dnd5eexhaustion"),
+    FRIGHTENED: staticID("dnd5efrightened")
   };
 
   /* -------------------------------------------- */
@@ -338,6 +339,7 @@ export default class ActiveEffect5e extends ActiveEffect {
     super.prepareDerivedData();
     if ( (this.getFlag("dnd5e", "type") === "enchantment") || this.getFlag("dnd5e", "rider") ) this.transfer = false;
     if ( this.id === this.constructor.ID.EXHAUSTION ) this._prepareExhaustionLevel();
+    if ( this.id === this.constructor.ID.FRIGHTENED ) this._prepareFrightenedLevel();
     if ( this.isAppliedEnchantment ) EnchantmentData.trackEnchantment(this.origin, this.uuid);
   }
 
@@ -358,6 +360,26 @@ export default class ActiveEffect5e extends ActiveEffect {
     if ( level >= config.levels ) {
       this.statuses.add("dead");
       CONFIG.DND5E.statusEffects.dead.statuses?.forEach(s => this.statuses.add(s));
+    }
+  }
+
+  /* -------------------------------------------- */
+  
+  /**
+   * Modify the ActiveEffect's attributes based on the frightened level.
+   * @protected
+   */
+  _prepareFrightenedLevel() {
+    const config = CONFIG.DND5E.conditionTypes.frightened;
+    let level = this.getFlag("dnd5e", "frightenedLevel");
+    if ( !Number.isFinite(level) ) level = 1;
+    // TODO: Remove when v11 support is dropped.
+    if ( game.release.version < 12 ) this.icon = this.constructor._getFrightenedImage(level);
+    else this.img = this.constructor._getFrightenedImage(level);
+    this.name = `${game.i18n.localize("DND5E.Frightened")} ${level}`;
+    if ( level >= config.levels ) {
+      //this.statuses.add("dead");
+      //CONFIG.DND5E.statusEffects.dead.statuses?.forEach(s => this.statuses.add(s));
     }
   }
 
@@ -484,7 +506,9 @@ export default class ActiveEffect5e extends ActiveEffect {
   _onUpdate(data, options, userId) {
     super._onUpdate(data, options, userId);
     const originalLevel = foundry.utils.getProperty(options, "dnd5e.originalExhaustion");
+    const originalFrightenedLevel = foundry.utils.getProperty(options, "dnd5e.originalFrightened");
     const newLevel = foundry.utils.getProperty(data, "flags.dnd5e.exhaustionLevel");
+    const newFrightenedLevel = foundry.utils.getProperty(data, "flags.dnd5e.frightenedLevel");
     const originalEncumbrance = foundry.utils.getProperty(options, "dnd5e.originalEncumbrance");
     const newEncumbrance = data.statuses?.[0];
     const name = this.name;
@@ -496,6 +520,16 @@ export default class ActiveEffect5e extends ActiveEffect {
       // accept a name parameter instead.
       if ( newLevel < originalLevel ) this.name = `Exhaustion ${originalLevel}`;
       this._displayScrollingStatus(newLevel > originalLevel);
+      this.name = name;
+    }
+
+    // Display proper scrolling status effects for frightened
+    if ( (this.id === this.constructor.ID.FRIGHTENED) && Number.isFinite(newFrightenedLevel) && Number.isFinite(originalFrightenedLevel) ) {
+      if ( newFrightenedLevel === originalFrightenedLevel ) return;
+      // Temporarily set the name for the benefit of _displayScrollingTextStatus. We should improve this method to
+      // accept a name parameter instead.
+      if ( newFrightenedLevel < originalFrightenedLevel ) this.name = `Frightened ${originalFrightenedLevel}`;
+      this._displayScrollingStatus(newFrightenedLevel > originalFrightenedLevel);
       this.name = name;
     }
 
@@ -534,7 +568,7 @@ export default class ActiveEffect5e extends ActiveEffect {
   }
 
   /* -------------------------------------------- */
-  /*  Exhaustion and Concentration Handling       */
+  /*  Exhaustion, Frightened and Concentration Handling       */
   /* -------------------------------------------- */
 
   /**
@@ -581,7 +615,7 @@ export default class ActiveEffect5e extends ActiveEffect {
   /* -------------------------------------------- */
 
   /**
-   * Adjust exhaustion icon display to match current level.
+   * Adjust exhaustion/frightened icon display to match current level.
    * @param {Application} app  The TokenHUD application.
    * @param {jQuery} html      The TokenHUD HTML.
    */
@@ -591,6 +625,14 @@ export default class ActiveEffect5e extends ActiveEffect {
     if ( Number.isFinite(level) && (level > 0) ) {
       const img = ActiveEffect5e._getExhaustionImage(level);
       html.find('[data-status-id="exhaustion"]').css({
+        objectPosition: "-100px",
+        background: `url('${img}') no-repeat center / contain`
+      });
+    }
+    const frightenedLevel = foundry.utils.getProperty(actor, "system.attributes.frightened");
+    if ( Number.isFinite(frightenedLevel) && (frightenedLevel > 0) ) {
+      const img = ActiveEffect5e._getFrightenedImage(frightenedLevel);
+      html.find('[data-status-id="frightened"]').css({
         objectPosition: "-100px",
         background: `url('${img}') no-repeat center / contain`
       });
@@ -611,6 +653,19 @@ export default class ActiveEffect5e extends ActiveEffect {
     return `${path}-${level}.${ext}`;
   }
 
+ /* -------------------------------------------- */
+
+  /**
+   * Get the image used to represent frightened at this level.
+   * @param {number} level
+   * @returns {string}
+   */
+  static _getFrightenedImage(level) {
+    const split = CONFIG.DND5E.conditionTypes.frightened.icon.split(".");
+    const ext = split.pop();
+    const path = split.join(".");
+    return `${path}-${level}.${ext}`;
+  }
   /* -------------------------------------------- */
 
   /**
@@ -648,6 +703,7 @@ export default class ActiveEffect5e extends ActiveEffect {
 
     const id = target.dataset?.statusId;
     if ( id === "exhaustion" ) ActiveEffect5e._manageExhaustion(event, actor);
+    else if ( id === "frightened" ) ActiveEffect5e._manageFrightened(event, actor);
     else if ( id === "concentrating" ) ActiveEffect5e._manageConcentration(event, actor);
   }
 
@@ -667,6 +723,24 @@ export default class ActiveEffect5e extends ActiveEffect {
     else level--;
     const max = CONFIG.DND5E.conditionTypes.exhaustion.levels;
     actor.update({ "system.attributes.exhaustion": Math.clamp(level, 0, max) });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Manage custom frightened cycling when interacting with the token HUD.
+   * @param {PointerEvent} event        The triggering event.
+   * @param {Actor5e} actor             The actor belonging to the token.
+   */
+  static _manageFrightened(event, actor) {
+    let level = foundry.utils.getProperty(actor, "system.attributes.frightened");
+    if ( !Number.isFinite(level) ) return;
+    event.preventDefault();
+    event.stopPropagation();
+    if ( event.button === 0 ) level++;
+    else level--;
+    const max = CONFIG.DND5E.conditionTypes.frightened.levels;
+    actor.update({ "system.attributes.frightened": Math.clamp(level, 0, max) });
   }
 
   /* -------------------------------------------- */

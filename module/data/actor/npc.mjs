@@ -285,6 +285,7 @@ export default class NPCData extends CreatureTemplate {
     this.prepareAbilities({ rollData, originalSaves });
     AttributesFields.prepareEncumbrance.call(this, rollData);
     AttributesFields.prepareExhaustionLevel.call(this);
+    AttributesFields.prepareFrightenedLevel.call(this);
     AttributesFields.prepareMovement.call(this);
     AttributesFields.prepareConcentration.call(this, rollData);
     TraitsFields.prepareResistImmune.call(this);
