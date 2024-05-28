@@ -301,7 +301,7 @@ DND5E.skills = {
     reference: "Compendium.dnd5e.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.t3EzDU5b9BVAIEVi",
     icon: "icons/magic/fire/flame-burning-campfire-yellow-blue.webp"
   },
-  Tactics: {
+  tac: {
     label: "DND5E.SkillTac",
     ability: "wis",
     fullKey: "tactics",
