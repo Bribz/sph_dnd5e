@@ -446,9 +446,10 @@ DND5E.ammoIds = {
 DND5E.toolTypes = {
   art: "DND5E.ToolArtisans",
   game: "DND5E.ToolGamingSet",
-  music: "DND5E.ToolMusicalInstrument"
+  music: "DND5E.ToolMusicalInstrument",
+  misc: "DND5E.ToolMisc"
 };
-preLocalize("toolTypes", { sort: true });
+preLocalize("toolTypes", { sort: false });
 
 /**
  * The categories of tool proficiencies that a character can gain.
@@ -468,9 +469,9 @@ preLocalize("toolProficiencies", { sort: true });
  */
 DND5E.toolIds = {
   alchemist: "SztwZhbhZeCqyAes",
-  basic: "Y9S75go1hLMXUD48",
+  basic: "1iS19OQ6zibhCHgM",
   bagpipes: "yxHi57T5mmVt0oDr",
-  barber: "Y9S75go1hLMXUD48",
+  barber: "ZnSyGXJh5GsaivW3",
   brewer: "Y9S75go1hLMXUD48",
   calligrapher: "jhjo20QoiD5exf09",
   card: "YwlHI3BVJapz4a3E",
@@ -483,10 +484,10 @@ DND5E.toolIds = {
   disg: "IBhDAr7WkhWPYLVn",
   drum: "69Dpr25pf4BjkHKb",
   dulcimer: "NtdDkjmpdIMiX7I2",
-  enchanter: "Y9S75go1hLMXUD48",
-  engineer: "Y9S75go1hLMXUD48",
-  farming: "Y9S75go1hLMXUD48",
-  fishing: "Y9S75go1hLMXUD48",
+  enchanter: "wrgDI4qX7JkwrBJk",
+  engineer: "FBDkBvhnOIpZIWVD",
+  farming: "RQDCYp22Ut4r5ZwN",
+  fishing: "162LgPzEOamq6rKm",
   flute: "eJOrPcAz9EcquyRQ",
   forg: "cG3m4YlHfbQlLEOx",
   glassblower: "rTbVrNcwApnuTz5E",
@@ -494,28 +495,28 @@ DND5E.toolIds = {
   horn: "aa9KuBy4dst7WIW9",
   jeweler: "YfBwELTgPFHmQdHh",
   leatherworker: "PUMfwyVUbtyxgYbD",
-  lumberjack: "Y9S75go1hLMXUD48",
+  lumberjack: "OaYgcUTCrt1GYnXZ",
   lute: "qBydtUUIkv520DT7",
   lyre: "EwG1EtmbgR3bM68U",
   mason: "skUih6tBvcBbORzA",
-  merchant: "Y9S75go1hLMXUD48",
-  miner: "Y9S75go1hLMXUD48",
+  merchant: "ilMXYxkOKkprpfhv",
+  miner: "lQA2kFr26ksjXMuk",
   navg: "YHCmjsiXxZ9UdUhU",
   painter: "ccm5xlWhx74d6lsK",
   panflute: "G5m5gYIx9VAUWC3J",
   pois: "il2GNi8C0DvGLL9P",
   potter: "hJS8yEVkqgJjwfWa",
-  rending: "Y9S75go1hLMXUD48",
-  ritimpl: "Y9S75go1hLMXUD48",
+  rending: "y8gWscoCdLKwamIy",
+  ritimpl: "iI2s2rbvF8MCHUMT",
   shawm: "G3cqbejJpfB91VhP",
   smith: "KndVe2insuctjIaj",
-  surgery: "Y9S75go1hLMXUD48",
-  tamer: "Y9S75go1hLMXUD48",
+  surgery: "zfeiHSYvgsBJngpa",
+  tamer: "6nLfyLOSoNWx9Y9v",
   thief: "woWZ1sO5IUVGzo58",
   tinker: "0d08g1i5WXnNrCNA",
-  trapper: "Y9S75go1hLMXUD48",
+  trapper: "ODWuzx3FylKKy1Pb",
   viol: "baoe3U5BfMMMxhCU",
-  waxworker: "Y9S75go1hLMXUD48",
+  waxworker: "vctv5kBFC5Tosb9K",
   weaver: "ap9prThUB2y9lDyj",
   woodcarver: "xKErqkLo4ASYr5EP"
 };
@@ -2649,12 +2650,13 @@ DND5E.conditionTypes = {
     label: "DND5E.ConExhaustion",
     icon: "systems/dnd5e/icons/svg/statuses/exhaustion.svg",
     reference: "Compendium.dnd5e.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.cspWveykstnu3Zcv",
-    levels: 6
+    levels: 10
   },
   frightened: {
     label: "DND5E.ConFrightened",
     icon: "systems/dnd5e/icons/svg/statuses/frightened.svg",
-    reference: "Compendium.dnd5e.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.oreoyaFKnvZCrgij"
+    reference: "Compendium.dnd5e.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.oreoyaFKnvZCrgij",
+    levels: 4
   },
   grappled: {
     label: "DND5E.ConGrappled",
@@ -2817,16 +2819,146 @@ DND5E.languages = {
     label: "DND5E.LanguagesStandard",
     children: {
       common: "DND5E.LanguagesCommon",
+      druidic: "DND5E.LanguagesDruidic",
+      sacre: "DND5e.LanguagesSacre",
+      cant: "DND5E.LanguagesThievesCant",
+      zeigltol: "DND5e.LanguagesZeigltol"
+    }
+  },
+  secret: {
+    label: "DND5E.LanguagesSecret",
+    children: {
+    }
+  },
+  regional: {
+    label: "DND5E.LanguagesRegional",
+    children: {
+      Barud: {
+        label: "DND5E.LanguagesRegionBarud",
+        children: {
+          brynndi: "DND5E.LanguagesBrynndi",
+          elryvian: "DND5E.LanguagesElryvian",
+          fhumdian: "DND5E.LanguagesFhumdian",
+          haegramnir: "DND5E.LanguagesHaegramnir",
+          jalas: "DND5E.LanguagesJalas",
+          kaghe: "DND5E.LanguagesKaghe",
+          scoya: "DND5E.LanguagesScoya",
+          veizlalese: "DND5E.LanguagesVeizlalese",
+          vendrese: "DND5E.LanguagesVendrese"
+        }
+      },
+      Hekuda: {
+        label: "DND5E.LanguagesRegionHekuda",
+        children: {
+          alentian: "DND5E.LanguagesAlentian",
+          amuni: "DND5E.LanguagesAmuni",
+          arlogish: "DND5E.LanguagesArlogish",
+          berusian: "DND5E.LanguagesBerusian",
+          bruli: "DND5E.LanguagesBruli",
+          baruna: "DND5E.LanguagesDaruna",
+          daruvonic: "DND5E.LanguagesDaruvonic",
+          dolic: "DND5E.LanguagesDolic",
+          elderian: "DND5E.LanguagesElderian",
+          erazorian: "DND5E.LanguagesErazorian",
+          fyroe: "DND5E.LanguagesFyroe",
+          myric: "DND5E.LanguagesMyric",
+          pelagese: "DND5E.LanguagesPelagese",
+          rhellic: "DND5E.LanguagesRhellic",
+          trundul: "DND5E.LanguagesTrundul",
+          vazianlow: "DND5E.LanguagesVazianLow",
+          vazianhigh: "DND5E.LanguagesVazianHigh",
+          vorathi: "DND5E.LanguagesVorathi",
+          wesurian: "DND5E.LanguagesWesurian",
+          yokese: "DND5E.LanguagesYokese"
+        }
+      },
+      Leshulti: {
+        label: "DND5E.LanguagesRegionLeshulti",
+        children: {
+          aeresian: "DND5E.LanguagesAeresian",
+          beshan: "DND5E.LanguagesBeshan",
+          dakk: "DND5E.LanguagesDakk",
+          durathese: "DND5E.LanguagesDurathese",
+          fwyndi: "DND5E.LanguagesFwyndi",
+          kosara: "DND5E.LanguagesKosara",
+          nahaunta: "DND5E.LanguagesNahaunta",
+          sarkiesian: "DND5E.LanguagesSarkiesian"
+        }
+      },
+      Shabos: {
+        label: "DND5E.LanguagesRegionShabos",
+        children: {
+          farese: "DND5E.LanguagesFarese",
+          hennic: "DND5E.LanguagesHennic",
+          pharesian: "DND5E.LanguagesPharesian",
+          polruni: "DND5E.LanguagesPolruni",
+          reusa: "DND5E.LanguagesReusa",
+          tyleian: "DND5E.LanguagesTyleian",
+          veetian: "DND5E.LanguagesVeetian"
+        }
+      }
+    }
+  },
+  planar: {
+    label: "DND5E.LanguagesPlanar",
+    children: {
+      abyssal: "DND5E.LanguagesAbyssal",
+      aklo: "DND5E.LanguagesAklo",
+      aquan: "DND5E.LanguagesAquan",
+      auran: "DND5E.LanguagesAuran",
+      celestial: "DND5E.LanguagesCelestial",
+      darkfolk: "DND5E.LanguagesDarkFolk",
+      ignan: "DND5E.LanguagesIgnan",
+      infernal: "DND5E.LanguagesInfernal",
+      necril: "DND5E.LanguagesNecril",
+      primordial: "DND5E.LanguagesPrimordial",
+      shadowlands: "DND5E.LanguagesShadowlands",
+      spirittongue: "DND5E.LanguagesSpiritTongue",
+      sylvan: "DND5E.LanguagesSylvan",
+      terran: "DND5E.LanguagesTerran",
+    }
+  },
+  racial: {
+    label: "DND5E.LanguagesRacial",
+    children: {
+      alf: "DND5E.LanguagesAlf",
+      canine: "DND5E.LanguagesCanine",
+      canter: "DND5E.LanguagesCanter",
+      chiripi: "DND5E.LanguagesChiripi",
+      chitterling: "DND5E.LanguagesChitterling",
+      croaki: "DND5E.LanguagesCroaki",
+      deepspeech: "DND5E.LanguagesDeepSpeech",
+      draconic: "DND5E.LanguagesDraconic",
       dwarvish: "DND5E.LanguagesDwarvish",
       elvish: "DND5E.LanguagesElvish",
+      feline: "DND5E.LanguagesFeline",
       giant: "DND5E.LanguagesGiant",
       gnomish: "DND5E.LanguagesGnomish",
       goblin: "DND5E.LanguagesGoblin",
       halfling: "DND5E.LanguagesHalfling",
-      orc: "DND5E.LanguagesOrc"
+      hassasshee: "DND5E.LanguagesHassasshee",
+      nein: "DND5E.LanguagesNein",
+      orc: "DND5E.LanguagesOrc",
+      pherose: "DND5E.LanguagesPherose",
+      probus: "DND5E.LanguagesProbus",
+      sahuagin: "DND5E.LanguagesSahuagin",
+      sauric: "DND5E.LanguagesSauric",
+      sqree: "DND5E.LanguagesSqree",
+      svart: "DND5E.LanguagesSvart",
+      undercommon: "DND5E.LanguagesUndercommon",
+      vanaran: "DND5E.LanguagesVanaran",
     }
   },
-  exotic: {
+  sign: {
+    label: "DND5E.LanguagesSign",
+    children: {
+      bsl: "DND5E.LanguagesBSL",
+      dsl: "DND5E.LanguagesDSL",
+      vsl: "DND5e.LanguagesVSL",
+    }
+  }
+  /*
+  planar: {
     label: "DND5E.LanguagesExotic",
     children: {
       aarakocra: "DND5E.LanguagesAarakocra",
@@ -2850,8 +2982,7 @@ DND5E.languages = {
       undercommon: "DND5E.LanguagesUndercommon"
     }
   },
-  druidic: "DND5E.LanguagesDruidic",
-  cant: "DND5E.LanguagesThievesCant"
+  */
 };
 preLocalize("languages", { key: "label" });
 preLocalize("languages.standard.children", { key: "label", sort: true });
@@ -3050,7 +3181,15 @@ DND5E.traitModes = {
   upgrade: {
     label: "DND5E.AdvancementTraitModeUpgradeLabel",
     hint: "DND5E.AdvancementTraitModeUpgradeHint"
-  }
+  },
+  master: {
+    label: "DND5E.AdvancementTraitModeMasterLabel",
+    hint: "DND5E.AdvancementTraitModeMasterHint"
+  },
+  forcedMaster: {
+    label: "DND5E.AdvancementTraitModeForceMasterLabel",
+    hint: "DND5E.AdvancementTraitModeForceMasterHint"
+  },
 };
 preLocalize("traitModes", { keys: ["label", "hint"] });
 
