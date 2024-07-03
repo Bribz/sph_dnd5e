@@ -13,6 +13,7 @@ export default class ActiveEffect5e extends ActiveEffect {
   static ID = {
     ENCUMBERED: staticID("dnd5eencumbered"),
     EXHAUSTION: staticID("dnd5eexhaustion"),
+    FOGGED:     staticID("dnd5efogged"),
     FRIGHTENED: staticID("dnd5efrightened")
   };
 
@@ -339,6 +340,7 @@ export default class ActiveEffect5e extends ActiveEffect {
     super.prepareDerivedData();
     if ( (this.getFlag("dnd5e", "type") === "enchantment") || this.getFlag("dnd5e", "rider") ) this.transfer = false;
     if ( this.id === this.constructor.ID.EXHAUSTION ) this._prepareExhaustionLevel();
+    if ( this.id === this.constructor.ID.FOGGED ) this._prepareFoggedLevel();
     if ( this.id === this.constructor.ID.FRIGHTENED ) this._prepareFrightenedLevel();
     if ( this.isAppliedEnchantment ) EnchantmentData.trackEnchantment(this.origin, this.uuid);
   }
@@ -377,6 +379,26 @@ export default class ActiveEffect5e extends ActiveEffect {
     if ( game.release.version < 12 ) this.icon = this.constructor._getFrightenedImage(level);
     else this.img = this.constructor._getFrightenedImage(level);
     this.name = `${game.i18n.localize("DND5E.Frightened")} ${level}`;
+    if ( level >= config.levels ) {
+      //this.statuses.add("dead");
+      //CONFIG.DND5E.statusEffects.dead.statuses?.forEach(s => this.statuses.add(s));
+    }
+  }
+
+  /* -------------------------------------------- */
+  
+  /**
+   * Modify the ActiveEffect's attributes based on the fogged level.
+   * @protected
+   */
+  _prepareFoggedLevel() {
+    const config = CONFIG.DND5E.conditionTypes.fogged;
+    let level = this.getFlag("dnd5e", "foggedLevel");
+    if ( !Number.isFinite(level) ) level = 1;
+    // TODO: Remove when v11 support is dropped.
+    if ( game.release.version < 12 ) this.icon = this.constructor._getFoggedImage(level);
+    else this.img = this.constructor._getFoggedImage(level);
+    this.name = `${game.i18n.localize("DND5E.Fogged")} ${level}`;
     if ( level >= config.levels ) {
       //this.statuses.add("dead");
       //CONFIG.DND5E.statusEffects.dead.statuses?.forEach(s => this.statuses.add(s));
@@ -507,8 +529,10 @@ export default class ActiveEffect5e extends ActiveEffect {
     super._onUpdate(data, options, userId);
     const originalLevel = foundry.utils.getProperty(options, "dnd5e.originalExhaustion");
     const originalFrightenedLevel = foundry.utils.getProperty(options, "dnd5e.originalFrightened");
+    const originalFoggedLevel = foundry.utils.getProperty(options, "dnd5e.originalFogged");
     const newLevel = foundry.utils.getProperty(data, "flags.dnd5e.exhaustionLevel");
     const newFrightenedLevel = foundry.utils.getProperty(data, "flags.dnd5e.frightenedLevel");
+    const newFoggedLevel = foundry.utils.getProperty(data, "flags.dnd5e.foggedLevel");
     const originalEncumbrance = foundry.utils.getProperty(options, "dnd5e.originalEncumbrance");
     const newEncumbrance = data.statuses?.[0];
     const name = this.name;
@@ -530,6 +554,16 @@ export default class ActiveEffect5e extends ActiveEffect {
       // accept a name parameter instead.
       if ( newFrightenedLevel < originalFrightenedLevel ) this.name = `Frightened ${originalFrightenedLevel}`;
       this._displayScrollingStatus(newFrightenedLevel > originalFrightenedLevel);
+      this.name = name;
+    }
+
+    // Display proper scrolling status effects for fogged
+    if ( (this.id === this.constructor.ID.FOGGED) && Number.isFinite(newFoggedLevel) && Number.isFinite(originalFoggedLevel) ) {
+      if ( newFoggedLevel === originalFoggedLevel ) return;
+      // Temporarily set the name for the benefit of _displayScrollingTextStatus. We should improve this method to
+      // accept a name parameter instead.
+      if ( newFoggedLevel < originalFoggedLevel ) this.name = `Fogged ${originalFoggedLevel}`;
+      this._displayScrollingStatus(newFoggedLevel > originalFoggedLevel);
       this.name = name;
     }
 
@@ -568,7 +602,7 @@ export default class ActiveEffect5e extends ActiveEffect {
   }
 
   /* -------------------------------------------- */
-  /*  Exhaustion, Frightened and Concentration Handling       */
+  /*  Exhaustion, Frightened, Fogged, and Concentration Handling       */
   /* -------------------------------------------- */
 
   /**
@@ -615,7 +649,7 @@ export default class ActiveEffect5e extends ActiveEffect {
   /* -------------------------------------------- */
 
   /**
-   * Adjust exhaustion/frightened icon display to match current level.
+   * Adjust exhaustion/frightened/fogged icon display to match current level.
    * @param {Application} app  The TokenHUD application.
    * @param {jQuery} html      The TokenHUD HTML.
    */
@@ -625,6 +659,14 @@ export default class ActiveEffect5e extends ActiveEffect {
     if ( Number.isFinite(level) && (level > 0) ) {
       const img = ActiveEffect5e._getExhaustionImage(level);
       html.find('[data-status-id="exhaustion"]').css({
+        objectPosition: "-100px",
+        background: `url('${img}') no-repeat center / contain`
+      });
+    }
+    const foggedLevel = foundry.utils.getProperty(actor, "system.attributes.fogged");
+    if ( Number.isFinite(foggedLevel) && (foggedLevel > 0) ) {
+      const img = ActiveEffect5e._getFoggedImage(foggedLevel);
+      html.find('[data-status-id="fogged"]').css({
         objectPosition: "-100px",
         background: `url('${img}') no-repeat center / contain`
       });
@@ -666,6 +708,21 @@ export default class ActiveEffect5e extends ActiveEffect {
     const path = split.join(".");
     return `${path}-${level}.${ext}`;
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the image used to represent fogged at this level.
+   * @param {number} level
+   * @returns {string}
+   */
+  static _getFoggedImage(level) {
+    const split = CONFIG.DND5E.conditionTypes.fogged.icon.split(".");
+    const ext = split.pop();
+    const path = split.join(".");
+    return `${path}-${level}.${ext}`;
+  }
+
   /* -------------------------------------------- */
 
   /**
@@ -704,6 +761,7 @@ export default class ActiveEffect5e extends ActiveEffect {
     const id = target.dataset?.statusId;
     if ( id === "exhaustion" ) ActiveEffect5e._manageExhaustion(event, actor);
     else if ( id === "frightened" ) ActiveEffect5e._manageFrightened(event, actor);
+    else if ( id === "fogged" ) ActiveEffect5e._manageFogged(event, actor);
     else if ( id === "concentrating" ) ActiveEffect5e._manageConcentration(event, actor);
   }
 
@@ -742,6 +800,25 @@ export default class ActiveEffect5e extends ActiveEffect {
     const max = CONFIG.DND5E.conditionTypes.frightened.levels;
     actor.update({ "system.attributes.frightened": Math.clamp(level, 0, max) });
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Manage custom fogged cycling when interacting with the token HUD.
+   * @param {PointerEvent} event        The triggering event.
+   * @param {Actor5e} actor             The actor belonging to the token.
+   */
+  static _manageFogged(event, actor) {
+    let level = foundry.utils.getProperty(actor, "system.attributes.fogged");
+    if ( !Number.isFinite(level) ) return;
+    event.preventDefault();
+    event.stopPropagation();
+    if ( event.button === 0 ) level++;
+    else level--;
+    const max = CONFIG.DND5E.conditionTypes.fogged.levels;
+    actor.update({ "system.attributes.fogged": Math.clamp(level, 0, max) });
+  }
+
 
   /* -------------------------------------------- */
 

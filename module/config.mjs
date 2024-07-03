@@ -1416,6 +1416,294 @@ preLocalize("itemProperties", { keys: ["label", "abbreviation"], sort: true });
 
 /* -------------------------------------------- */
 
+DND5E.benefits = {
+  "AbettingGemstones":"DND5E.Item.Benefits.AbettingGemstones",
+  "Accurate": "DND5E.Item.Benefits.Accurate",
+  "Agile": "DND5E.Item.Benefits.Agile",
+  "BalancedWeight": "DND5E.Item.Benefits.BalancedWeight",
+  "Blackened": "DND5E.Item.Benefits.Blackened",
+  "Blessed": "DND5E.Item.Benefits.Blessed",
+  "Charged": "DND5E.Item.Benefits.Charged",
+  "Comfortable": "DND5E.Item.Benefits.Comfortable",
+  "Comfy": "DND5E.Item.Benefits.Comfy",
+  "Commemorative": "DND5E.Item.Benefits.Commemorative",
+  "Concealable": "DND5E.Item.Benefits.Concealable",
+  "Counterweight": "DND5E.Item.Benefits.Counterweight",
+  "Crushing": "DND5E.Item.Benefits.Crushing",
+  "Cursed": "DND5E.Item.Benefits.Cursed",
+  "Deadly": "DND5E.Item.Benefits.Deadly",
+  "Decorative": "DND5E.Item.Benefits.Decorative",
+  "Defender": "DND5E.Item.Benefits.Defender",
+  "Diffusing": "DND5E.Item.Benefits.Diffusing",
+  "DispersedWeight": "DND5E.Item.Benefits.DispersedWeight",
+  "Efficient": "DND5E.Item.Benefits.Efficient",
+  "EnhancedSpread": "DND5E.Item.Benefits.EnhancedSpread",
+  "Envenomed": "DND5E.Item.Benefits.Envenomed",
+  "Eviscerating": "DND5E.Item.Benefits.Eviscerating",
+  "Exsanguinate": "DND5E.Item.Benefits.Exsanguinate",
+  "FireProofed": "DND5E.Item.Benefits.FireProofed",
+  "FittedForm": "DND5E.Item.Benefits.FittedForm",
+  "FlowingSpirit": "DND5E.Item.Benefits.FlowingSpirit",
+  "Forgery": "DND5E.Item.Benefits.Forgery",
+  "Fortified": "DND5E.Item.Benefits.Fortified",
+  "Glowing": "DND5E.Item.Benefits.Glowing",
+  "Guard": "DND5E.Item.Benefits.Guard",
+  "Hardy": "DND5E.Item.Benefits.Hardy",
+  "HeavyFire": "DND5E.Item.Benefits.HeavyFire",
+  "Impact": "DND5E.Item.Benefits.Impact",
+  "ImprovedGrip": "DND5E.Item.Benefits.ImprovedGrip",
+  "Inspiring": "DND5E.Item.Benefits.Inspiring",
+  "Insulated": "DND5E.Item.Benefits.Insulated",
+  "KiControl": "DND5E.Item.Benefits.KiControl",
+  "Lethal": "DND5E.Item.Benefits.Lethal",
+  "Light": "DND5E.Item.Benefits.Light",
+  "Loud": "DND5E.Item.Benefits.Loud",
+  "ManaCircuits": "DND5E.Item.Benefits.ManaCircuits",
+  "MasterCraft": "DND5E.Item.Benefits.Mastercraft",
+  "Ornate": "DND5E.Item.Benefits.Ornate",
+  "Poisoned": "DND5E.Item.Benefits.Poisoned",
+  "PowerFoci": "DND5E.Item.Benefits.PowerFoci",
+  "Quickdraw": "DND5E.Item.Benefits.Quickdraw",
+  "Recovering": "DND5E.Item.Benefits.Recovering",
+  "RevolvingChamber": "DND5E.Item.Benefits.RevolvingChamber",
+  "Rugged": "DND5E.Item.Benefits.Rugged",
+  "Safeguard": "DND5E.Item.Benefits.Safeguard",
+  "Sapping": "DND5E.Item.Benefits.Sapping",
+  "Savage": "DND5E.Item.Benefits.Savage",
+  "SecuredStraps": "DND5E.Item.Benefits.SecuredStraps",
+  "Sharp": "DND5E.Item.Benefits.Sharp",
+  "Sighted": "DND5E.Item.Benefits.Sighted",
+  "Slamming": "DND5E.Item.Benefits.Slamming",
+  "Slotted": "DND5E.Item.Benefits.Slotted",
+  "Structured": "DND5E.Item.Benefits.Structured",
+  "Sturdy": "DND5E.Item.Benefits.Sturdy",
+  "SuccessiveFire": "DND5E.Item.Benefits.SuccessiveFire",
+  "Supple": "DND5E.Item.Benefits.Supple",
+  "Swatter": "DND5E.Item.Benefits.Swatter",
+  "Symbolic": "DND5E.Item.Benefits.Symbolic",
+  "Thick": "DND5E.Item.Benefits.Thick",
+  "Threatening":  "DND5E.Item.Benefits.Threatening",
+  "Waterproof": "DND5E.Item.Benefits.Waterproof",
+  "Weighted": "DND5E.Item.Benefits.Weighted",
+  "WellCrafted": "DND5E.Item.Benefits.WellCrafted",
+  "WellOiled": "DND5E.Item.Benefits.WellOiled"
+};
+
+DND5E.itemBenefits = {
+  abgem: {
+    label: "DND5E.Item.Benefits.AbettingGemstones"
+  },
+  acc: {
+    label: "DND5E.Item.Benefits.Accurate"
+  },
+  agile: {
+    label: "DND5E.Item.Benefits.Agile"
+  },
+  bala: {
+    label: "DND5E.Item.Benefits.BalancedWeight"
+  },
+  blacken: {
+    label: "DND5E.Item.Benefits.Blackened"
+  },
+  blessed: {
+    label: "DND5E.Item.Benefits.Blessed"
+  },
+  charge: {
+    label: "DND5E.Item.Benefits.Charged"
+  },
+  comforta: {
+    label: "DND5E.Item.Benefits.Comfortable"
+  },
+  comfy: {
+    label: "DND5E.Item.Benefits.Comfy"
+  },
+  commem: {
+    label: "DND5E.Item.Benefits.Commemorative"
+  },
+  concel: {
+    label: "DND5E.Item.Benefits.Concealable"
+  },
+  counter: {
+    label: "DND5E.Item.Benefits.Counterweight"
+  },
+  crushi: {
+    label: "DND5E.Item.Benefits.Crushing"
+  },
+  cursed: {
+    label: "DND5E.Item.Benefits.Cursed"
+  },
+  deadly: {
+    label: "DND5E.Item.Benefits.Deadly"
+  },
+  decor: {
+    label: "DND5E.Item.Benefits.Decorative"
+  },
+  defend: {
+    label: "DND5E.Item.Benefits.Defender"
+  },
+  diffus: {
+    label: "DND5E.Item.Benefits.Diffusing"
+  },
+  disper: {
+    label: "DND5E.Item.Benefits.DispersedWeight"
+  },
+  effic: {
+    label: "DND5E.Item.Benefits.Efficient"
+  },
+  enhanc: {
+    label: "DND5E.Item.Benefits.EnhancedSpread"
+  },
+  enven: {
+    label: "DND5E.Item.Benefits.Envenomed"
+  },
+  evisc: {
+    label: "DND5E.Item.Benefits.Eviscerating"
+  },
+  exsang: {
+    label: "DND5E.Item.Benefits.Exsanguinate"
+  },
+  firep: {
+    label: "DND5E.Item.Benefits.FireProofed"
+  },
+  fitted: {
+    label: "DND5E.Item.Benefits.FittedForm"
+  },
+  flowin: {
+    label: "DND5E.Item.Benefits.FlowingSpirit"
+  },
+  forger: {
+    label: "DND5E.Item.Benefits.Forgery"
+  },
+  fortif: {
+    label: "DND5E.Item.Benefits.Fortified"
+  },
+  glow: {
+    label: "DND5E.Item.Benefits.Glowing"
+  },
+  guard: {
+    label: "DND5E.Item.Benefits.Guard"
+  },
+  hardy: {
+    label: "DND5E.Item.Benefits.Hardy"
+  },
+  heavyf: {
+    label: "DND5E.Item.Benefits.HeavyFire"
+  },
+  impac: {
+    label: "DND5E.Item.Benefits.Impact"
+  },
+  improvg: {
+    label: "DND5E.Item.Benefits.ImprovedGrip"
+  },
+  inspir: {
+    label: "DND5E.Item.Benefits.Inspiring"
+  },
+  insul: {
+    label: "DND5E.Item.Benefits.Insulated"
+  },
+  kicon: {
+    label: "DND5E.Item.Benefits.KiControl"
+  },
+  lethal: {
+    label: "DND5E.Item.Benefits.Lethal"
+  },
+  light: {
+    label: "DND5E.Item.Benefits.Light"
+  },
+  loud: {
+    label: "DND5E.Item.Benefits.Loud"
+  },
+  manacirc: {
+    label: "DND5E.Item.Benefits.ManaCircuits"
+  },
+  masterc: {
+    label: "DND5E.Item.Benefits.Mastercraft"
+  },
+  ornate: {
+    label: "DND5E.Item.Benefits.Ornate"
+  },
+  poison: {
+    label: "DND5E.Item.Benefits.Poisoned"
+  },
+  powfoci: {
+    label: "DND5E.Item.Benefits.PowerFoci"
+  },
+  quickd: {
+    label: "DND5E.Item.Benefits.Quickdraw"
+  },
+  recover: {
+    label: "DND5E.Item.Benefits.Recovering"
+  },
+  revol: {
+    label: "DND5E.Item.Benefits.RevolvingChamber"
+  },
+  rugged: {
+    label: "DND5E.Item.Benefits.Rugged"
+  },
+  safeg: {
+    label: "DND5E.Item.Benefits.Safeguard"
+  },
+  sapping: {
+    label: "DND5E.Item.Benefits.Sapping"
+  },
+  savage: {
+    label: "DND5E.Item.Benefits.Savage"
+  },
+  secstrap: {
+    label: "DND5E.Item.Benefits.SecuredStraps"
+  },
+  sharp: {
+    label: "DND5E.Item.Benefits.Sharp"
+  },
+  sighted: {
+    label: "DND5E.Item.Benefits.Sighted"
+  },
+  slamm: {
+    label: "DND5E.Item.Benefits.Slamming"
+  },
+  slott: {
+    label: "DND5E.Item.Benefits.Slotted"
+  },
+  structu: {
+    label: "DND5E.Item.Benefits.Structured"
+  },
+  sturdy: {
+    label: "DND5E.Item.Benefits.Sturdy"
+  },
+  successive: {
+    label: "DND5E.Item.Benefits.SuccessiveFire"
+  },
+  supple: {
+    label: "DND5E.Item.Benefits.Supple"
+  },
+  swatt: {
+    label: "DND5E.Item.Benefits.Swatter"
+  },
+  symboli: {
+    label: "DND5E.Item.Benefits.Symbolic"
+  },
+  thick: {
+    label: "DND5E.Item.Benefits.Thick"
+  },
+  threate: {
+    label: "DND5E.Item.Benefits.Threatening"
+  },
+  waterp: {
+    label: "DND5E.Item.Benefits.Waterproof"
+  },
+  weighte: {
+    label: "DND5E.Item.Benefits.Weighted"
+  },
+  wellcr: {
+    label: "DND5E.Item.Benefits.WellCrafted"
+  },
+  welloil: {
+    label: "DND5E.Item.Benefits.WellOiled"
+  }
+};
+preLocalize("itemBenefits", {keys:["label", "abbreviation"], sort: true})
+
+
 /**
  * The various properties of an item per item type.
  * @enum {object}
@@ -1555,6 +1843,16 @@ DND5E.currencies = {
   }
 };
 preLocalize("currencies", { keys: ["label", "abbreviation"] });
+
+DND5E.upkeep = {
+  "Wretched" : "DND5E.Upkeep.Wretched",
+  "Squalid" : "DND5E.Upkeep.Squalid",
+  "Poor" : "DND5E.Upkeep.Poor",
+  "Modest" : "DND5E.Upkeep.Modest",
+  "Comfortable" : "DND5E.Upkeep.Comfortable",
+  "Wealthy" : "DND5E.Upkeep.Wealthy",
+  "Aristocratic" : "DND5E.Upkeep.Aristocratic",
+};
 
 /* -------------------------------------------- */
 /*  Damage Types                                */
@@ -2614,6 +2912,18 @@ DND5E.consumableResources = [
  * @enum {ConditionConfiguration}
  */
 DND5E.conditionTypes = {
+  aflame: {
+    label: "EFFECT.DND5E.StatusAflame",
+    icon: "systems/dnd5e/icons/svg/statuses/aflame.svg",
+  },
+  anchored: {
+    label: "EFFECT.DND5E.StatusAnchored",
+    icon: "systems/dnd5e/icons/svg/statuses/anchored.svg",
+  },
+  antagonized: {
+    label: "EFFECT.DND5E.StatusAntagonized",
+    icon: "systems/dnd5e/icons/svg/statuses/antagonized.svg",
+  },
   bleeding: {
     label: "EFFECT.DND5E.StatusBleeding",
     icon: "systems/dnd5e/icons/svg/statuses/bleeding.svg",
@@ -2625,14 +2935,31 @@ DND5E.conditionTypes = {
     reference: "Compendium.dnd5e.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.0b8N4FymGGfbZGpJ",
     special: "BLIND"
   },
+  burdened: {
+    label: "EFFECT.DND5E.StatusBurdened",
+    icon: "systems/dnd5e/icons/svg/statuses/burdened.svg",
+  },
+  burned: {
+    label: "EFFECT.DND5E.StatusBurned",
+    icon: "systems/dnd5e/icons/svg/statuses/burned.svg",
+  },
   charmed: {
     label: "DND5E.ConCharmed",
     icon: "systems/dnd5e/icons/svg/statuses/charmed.svg",
     reference: "Compendium.dnd5e.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.zZaEBrKkr66OWJvD"
   },
+  confused: {
+    label: "EFFECT.DND5E.StatusConfused",
+    icon: "systems/dnd5e/icons/svg/statuses/confused.svg",
+  },
   cursed: {
     label: "EFFECT.DND5E.StatusCursed",
     icon: "systems/dnd5e/icons/svg/statuses/cursed.svg",
+    pseudo: true
+  },
+  dazzled: {
+    label: "EFFECT.DND5E.StatusDazzled",
+    icon: "systems/dnd5e/icons/svg/statuses/dazzled.svg",
     pseudo: true
   },
   deafened: {
@@ -2640,11 +2967,31 @@ DND5E.conditionTypes = {
     icon: "systems/dnd5e/icons/svg/statuses/deafened.svg",
     reference: "Compendium.dnd5e.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.6G8JSjhn701cBITY"
   },
+  decayed: {
+    label: "EFFECT.DND5E.StatusDecayed",
+    icon: "systems/dnd5e/icons/svg/statuses/decayed.svg",
+  },
+  doomed: {
+    label: "EFFECT.DND5E.StatusDoomed",
+    icon: "systems/dnd5e/icons/svg/statuses/doomed.svg",
+  },
+  drained: {
+    label: "EFFECT.DND5E.StatusDrained",
+    icon: "systems/dnd5e/icons/svg/statuses/drained.svg",
+  },
   diseased: {
     label: "DND5E.ConDiseased",
     icon: "systems/dnd5e/icons/svg/statuses/diseased.svg",
     pseudo: true,
     reference: "Compendium.dnd5e.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.oNQWvyRZkTOJ8PBq"
+  },
+  engulfed: {
+    label: "EFFECT.DND5E.StatusEngulfed",
+    icon: "systems/dnd5e/icons/svg/statuses/engulfed.svg",
+  },
+  entangled: {
+    label: "EFFECT.DND5E.StatusEntangled",
+    icon: "systems/dnd5e/icons/svg/statuses/entangled.svg",
   },
   exhaustion: {
     label: "DND5E.ConExhaustion",
@@ -2658,6 +3005,12 @@ DND5E.conditionTypes = {
     reference: "Compendium.dnd5e.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.oreoyaFKnvZCrgij",
     levels: 4
   },
+  fogged: {
+    label: "DND5E.ConFogged",
+    icon: "systems/dnd5e/icons/svg/statuses/fogged.svg",
+    reference: "Compendium.dnd5e.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.cspWveykstnu3Zcv",
+    levels: 6
+  },
   grappled: {
     label: "DND5E.ConGrappled",
     icon: "systems/dnd5e/icons/svg/statuses/grappled.svg",
@@ -2668,10 +3021,27 @@ DND5E.conditionTypes = {
     icon: "systems/dnd5e/icons/svg/statuses/incapacitated.svg",
     reference: "Compendium.dnd5e.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.TpkZgLfxCmSndmpb"
   },
+  incorporeal: {
+    label: "EFFECT.DND5E.StatusIncorporeal",
+    icon: "systems/dnd5e/icons/svg/statuses/incorporeal.svg",
+  },
+  infectious: {
+    label: "EFFECT.DND5E.StatusInfectious",
+    icon: "systems/dnd5e/icons/svg/statuses/infectious.svg",
+  },
   invisible: {
     label: "DND5E.ConInvisible",
     icon: "systems/dnd5e/icons/svg/statuses/invisible.svg",
     reference: "Compendium.dnd5e.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.3UU5GCTVeRDbZy9u"
+  },
+  muted: {
+    label: "EFFECT.DND5E.StatusMuted",
+    icon: "systems/dnd5e/icons/svg/statuses/muted.svg",
+  },
+  nauseated: {
+    label: "EFFECT.DND5E.StatusNauseated",
+    icon: "systems/dnd5e/icons/svg/statuses/nauseated.svg",
+    pseudo: true
   },
   paralyzed: {
     label: "DND5E.ConParalyzed",
@@ -2700,6 +3070,14 @@ DND5E.conditionTypes = {
     icon: "systems/dnd5e/icons/svg/statuses/restrained.svg",
     reference: "Compendium.dnd5e.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.cSVcyZyNe2iG1fIc"
   },
+  sickened: {
+    label: "EFFECT.DND5E.StatusSickened",
+    icon: "systems/dnd5e/icons/svg/statuses/sickened.svg",
+  },
+  stuffed: {
+    label: "EFFECT.DND5E.StatusStuffed",
+    icon: "systems/dnd5e/icons/svg/statuses/stuffed.svg",
+  },
   silenced: {
     label: "EFFECT.DND5E.StatusSilenced",
     icon: "systems/dnd5e/icons/svg/statuses/silenced.svg",
@@ -2727,7 +3105,11 @@ DND5E.conditionTypes = {
     reference: "Compendium.dnd5e.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.UWw13ISmMxDzmwbd",
     statuses: ["incapacitated"],
     riders: ["prone"]
-  }
+  },
+  wounded: {
+    label: "EFFECT.DND5E.StatusWounded",
+    icon: "systems/dnd5e/icons/svg/statuses/bleeding.svg",
+  },
 };
 preLocalize("conditionTypes", { key: "label", sort: true });
 
@@ -2739,11 +3121,11 @@ preLocalize("conditionTypes", { key: "label", sort: true });
  * @enum {object}
  */
 DND5E.conditionEffects = {
-  noMovement: new Set(["exhaustion-5", "grappled", "paralyzed", "petrified", "restrained", "stunned", "unconscious"]),
-  halfMovement: new Set(["exhaustion-2"]),
+  noMovement: new Set(["exhaustion-7", "frightened-4", "grappled", "paralyzed", "petrified", "restrained", "stunned", "unconscious"]),
+  halfMovement: new Set(["exhaustion-4"]),
   crawl: new Set(["prone", "exceedingCarryingCapacity"]),
   petrification: new Set(["petrified"]),
-  halfHealth: new Set(["exhaustion-4"])
+  halfHealth: new Set(["exhaustion-6"])
 };
 
 /* -------------------------------------------- */
@@ -3009,8 +3391,8 @@ DND5E.maxAbilityScore = 20;
  * @type {number[]}
  */
 DND5E.CHARACTER_EXP_LEVELS = [
-  0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000, 85000, 100000,
-  120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000
+  0, 10, 30, 60, 100, 150, 230, 350, 510, 750, 1150, 1600,
+  2350, 3300, 4750, 6650, 9550, 13500, 19000, 27000
 ];
 
 /**

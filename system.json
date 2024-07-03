@@ -1,7 +1,7 @@
 {
-  "id": "dnd5e",
-  "title": "Dungeons & Dragons Fifth Edition",
-  "description": "A system for playing the fifth edition of the world's most popular role-playing game in the Foundry Virtual Tabletop environment.",
+  "id": "sphod",
+  "title": "Spheres of Divinity",
+  "description": "A D&D 5e hack created for the Syrik setting. Based on the D&D 5e 3.0 foundry system.",
   "version": "3.2.1",
   "compatibility": {
     "minimum": "11.315",
@@ -18,10 +18,10 @@
     }
   ],
   "esmodules": [
-    "dnd5e.mjs"
+    "sphod.mjs"
   ],
   "styles": [
-    "dnd5e.css"
+    "sphod.css"
   ],
   "packs": [
     {
@@ -205,8 +205,8 @@
     },
     {
       "type": "setup",
-      "url": "systems/dnd5e/ui/official/dnd5e-repo.jpg",
-      "thumbnail": "systems/dnd5e/ui/official/dnd5e-thumbnail.jpg"
+      "url": "systems/sphod/ui/syrik/Syrik-repo.jpg",
+      "thumbnail": "systems/sphod/ui/syrik/Syrik-thumbnail.jpg"
     }
   ],
   "socket": true,
@@ -217,13 +217,13 @@
     "units": "ft"
   },
   "primaryTokenAttribute": "attributes.hp",
-  "background": "systems/dnd5e/ui/official/dnd5e-background.webp",
+  "background": "systems/sphod/ui/syrik/Syrik-background.png",
   "flags": {
     "needsMigrationVersion": "3.1.0",
     "compatibleMigrationVersion": "0.8",
     "hotReload": {
       "extensions": ["css", "hbs", "json"],
-      "paths": ["dnd5e.css", "templates", "lang"]
+      "paths": ["sphod.css", "templates", "lang"]
     }
   }
 }

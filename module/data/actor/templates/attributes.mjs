@@ -52,6 +52,7 @@ export default class AttributesFields {
    * @property {string} senses.special          Description of any special senses or restrictions.
    * @property {string} spellcasting            Primary spellcasting ability.
    * @property {number} exhaustion              Creature's exhaustion level.
+   * @property {number} fogged                  Creature's fogged level.
    * @property {number} frightened              Creature's frightened level.
    * @property {object} concentration
    * @property {string} concentration.ability   The ability used for concentration saving throws.
@@ -75,6 +76,9 @@ export default class AttributesFields {
       }),
       exhaustion: new foundry.data.fields.NumberField({
         required: true, nullable: false, integer: true, min: 0, initial: 0, label: "DND5E.Exhaustion"
+      }),
+      fogged: new foundry.data.fields.NumberField({
+        required: true, nullable: false, integer: true, min: 0, initial: 0, label: "DND5E.Fogged"
       }),
       frightened: new foundry.data.fields.NumberField({
         required: true, nullable: false, integer: true, min: 0, initial: 0, label: "DND5E.Frightened"
@@ -238,6 +242,18 @@ export default class AttributesFields {
     const frightened = this.parent.effects.get(ActiveEffect5e.ID.FRIGHTENED);
     const level = frightened?.getFlag("dnd5e", "frightenedLevel");
     this.attributes.frightened = Number.isFinite(level) ? level : 0;
+  }
+
+  /* -------------------------------------------- */
+
+   /**
+   * Adjust fogged level based on Active Effects.
+   * @this {CharacterData|NPCData}
+   */
+   static prepareFoggedLevel() {
+    const fogged = this.parent.effects.get(ActiveEffect5e.ID.FOGGED);
+    const level = fogged?.getFlag("dnd5e", "foggedLevel");
+    this.attributes.fogged = Number.isFinite(level) ? level : 0;
   }
 
   /* -------------------------------------------- */

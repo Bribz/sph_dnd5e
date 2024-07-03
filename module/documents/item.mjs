@@ -484,6 +484,7 @@ export default class Item5e extends SystemDocumentMixin(Item) {
     // Advancement
     this._prepareAdvancement();
 
+    console.log(this.system.properties);
     // Item Properties
     if ( this.system.properties ) {
       this.labels.properties = this.system.properties.reduce((acc, prop) => {
@@ -496,7 +497,8 @@ export default class Item5e extends SystemDocumentMixin(Item) {
         return acc;
       }, []);
     }
-
+    console.log(this.system.benefits);
+    
     // Specialized preparation per Item type
     switch ( this.type ) {
       case "equipment":

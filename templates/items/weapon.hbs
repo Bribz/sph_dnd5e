@@ -113,6 +113,18 @@
             </div>
             {{/unless}}
 
+            {{!-- Item Benefits --}}
+            <div class="form-group stacked weapon-properties">
+                <label>{{localize "DND5E.ItemBenefits"}}</label>
+                {{#each benefits}}
+                {{label}}
+                <label class="checkbox">
+                    <input type="checkbox" name="system.benefits.{{ @key }}" {{ checked selected }}>
+                    {{ label }}
+                </label>
+                {{/each}}
+            </div>
+
             {{!-- Weapon Properties --}}
             <div class="form-group stacked weapon-properties">
                 <label>{{ localize "DND5E.ItemWeaponProperties" }}</label>

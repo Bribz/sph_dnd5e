@@ -37,6 +37,7 @@ export default class WeaponData extends ItemDataModel.mixin(
       type: new ItemTypeField({value: "simpleM", subtype: false}, {label: "DND5E.ItemWeaponType"}),
       magicalBonus: new NumberField({min: 0, integer: true, label: "DND5E.MagicalBonus"}),
       properties: new SetField(new StringField(), {label: "DND5E.ItemWeaponProperties"}),
+      benefits: new SetField(new StringField(), {label: "DND5E.ItemBenefits"}),
       proficient: new NumberField({
         required: true, min: 0, max: 1, integer: true, initial: null, label: "DND5E.ProficiencyLevel"
       })

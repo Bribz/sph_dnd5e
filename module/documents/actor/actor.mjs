@@ -254,13 +254,14 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
   /* -------------------------------------------- */
 
   /**
-   * Is this actor under the effect of this property from some status or due to its level of exhaustion/frightened?
+   * Is this actor under the effect of this property from some status or due to its level of exhaustion/frightened/fogged?
    * @param {string} key      A key in `DND5E.conditionEffects`.
    * @returns {boolean}       Whether the actor is affected.
    */
   hasConditionEffect(key) {
     const props = CONFIG.DND5E.conditionEffects[key] ?? new Set();
     const level = this.system.attributes?.exhaustion ?? null;
+    const foggedLevel = this.system.attributes?.fogged ?? null;
     const frightenedLevel = this.system.attributes?.frightened ?? null;
     const imms = this.system.traits?.ci?.value ?? new Set();
     const statuses = this.statuses;
@@ -268,6 +269,7 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
       const l = Number(k.split("-").pop());
       return (statuses.has(k) && !imms.has(k))
         || (!imms.has("exhaustion") && (level !== null) && Number.isInteger(l) && (level >= l))
+        || (!imms.has("fogged") && (foggedLevel !== null) && Number.isInteger(l) && (foggedLevel >= l))
         || (!imms.has("frightened") && (frightenedLevel !== null) && Number.isInteger(l) && (frightenedLevel >= l));
     });
   }
@@ -812,6 +814,10 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     // Record previous frightened level.
     if ( Number.isFinite(foundry.utils.getProperty(changed, "system.attributes.frightened")) ) {
       foundry.utils.setProperty(options, "dnd5e.originalFrightened", this.system.attributes.frightened);
+    }
+    // Record previous fogged level.
+    if ( Number.isFinite(foundry.utils.getProperty(changed, "system.attributes.fogged")) ) {
+      foundry.utils.setProperty(options, "dnd5e.originalFogged", this.system.attributes.fogged);
     }
   }
 
@@ -2856,6 +2862,7 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     d.system.details.alignment = o.system.details.alignment; // Don't change alignment
     d.system.attributes.exhaustion = o.system.attributes.exhaustion; // Keep your prior exhaustion level
     d.system.attributes.frightened = o.system.attributes.frightened; // Keep your prior frightened level
+    d.system.attributes.fogged = o.system.attributes.fogged; // Keep your prior fogged level
     d.system.attributes.inspiration = o.system.attributes.inspiration; // Keep inspiration
     d.system.spells = o.system.spells; // Keep spell slots
     d.system.attributes.ac.flat = target.system.attributes.ac.value; // Override AC
@@ -3237,6 +3244,7 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     if ( userId === game.userId ) {
       await this.updateEncumbrance(options);
       this._onUpdateExhaustion(data, options);
+      this._onUpdateFogged(data,options);
       this._onUpdateFrightened(data,options);
     }
 
@@ -3401,6 +3409,31 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     } else {
       effect = await ActiveEffect.implementation.fromStatusEffect("frightened", { parent: this });
       effect.updateSource({ "flags.dnd5e.frightenedLevel": level });
+      return ActiveEffect.implementation.create(effect, { parent: this, keepId: true });
+    }
+  }
+
+  /* -------------------------------------------- */
+  
+  /**
+   * TODO: Perform this as part of Actor._preUpdateOperation instead when it becomes available in v12.
+   * Handle syncing the Actor's fogged level with the ActiveEffect.
+   * @param {object} data                          The Actor's update delta.
+   * @param {DocumentModificationContext} options  Additional options supplied with the update.
+   * @returns {Promise<ActiveEffect|void>}
+   * @protected
+   */
+  async _onUpdateFogged(data, options) {
+    const level = foundry.utils.getProperty(data, "system.attributes.fogged");
+    if ( !Number.isFinite(level) ) return;
+    let effect = this.effects.get(ActiveEffect5e.ID.FOGGED);
+    if ( level < 1 ) return effect?.delete();
+    else if ( effect ) {
+      const originalFogged = foundry.utils.getProperty(options, "dnd5e.originalFogged");
+      return effect.update({ "flags.dnd5e.foggedLevel": level }, { dnd5e: { originalFogged } });
+    } else {
+      effect = await ActiveEffect.implementation.fromStatusEffect("fogged", { parent: this });
+      effect.updateSource({ "flags.dnd5e.foggedLevel": level });
       return ActiveEffect.implementation.create(effect, { parent: this, keepId: true });
     }
   }

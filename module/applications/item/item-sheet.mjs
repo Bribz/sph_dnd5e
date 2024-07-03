@@ -109,6 +109,7 @@ export default class ItemSheet5e extends ItemSheet {
       itemType: game.i18n.localize(CONFIG.Item.typeLabels[this.item.type]),
       itemStatus: this._getItemStatus(),
       itemProperties: this._getItemProperties(),
+      benes: this._getItemBenefits(),
       baseItems: await this._getItemBaseTypes(),
       isPhysical: item.system.hasOwnProperty("quantity"),
 
@@ -150,6 +151,28 @@ export default class ItemSheet5e extends ItemSheet {
     if ( !item.isEmbedded && foundry.utils.isEmpty(context.abilityConsumptionTargets) ) {
       context.abilityConsumptionHint = (this.item.system.consume?.type === "attribute")
         ? "DND5E.ConsumeHint.Attribute" : "DND5E.ConsumeHint.Item";
+    }
+
+    if ( ("benefits" in item.system) ) {
+      const benefits = new Set();
+      for(var benefit in CONFIG.DND5E.itemBenefits){
+        benefits.add({
+          label: CONFIG.DND5E.itemBenefits[benefit].label,
+          selected: item.system.benefits.has(benefit)
+        });
+      }
+      context.benefits = benefits;
+      /*
+      context.benefits = CONFIG.DND5E.itemBenefits.reduce((obj, k) => {
+        const v = CONFIG.DND5E.itemBenefits[k];
+        obj[k] = {
+          label: v.label,
+          selected: item.system.benefits.has(k)
+        };
+        return obj;
+      }, {});
+      */
+      context.benefits = sortObjectEntries(context.benefits, "label");
     }
 
     if ( ("properties" in item.system) && (item.type in CONFIG.DND5E.validProperties) ) {
@@ -430,6 +453,31 @@ export default class ItemSheet5e extends ItemSheet {
   }
 
   /* -------------------------------------------- */
+  _getItemBenefits() {
+    const props = [];
+    const labels = this.item.labels;
+    switch (this.item.type) {
+      case "consumable":
+      case "weapon":
+      case "equipment":
+        console.log(CONFIG.DND5E.itemBenefits);
+        const bp = CONFIG.DND5E.itemBenefits
+        this.item.system.properties.forEach(b=>{
+          if(bp.hasOwnProperty(b)) {
+            console.log(bp[b].label);
+            props.push(bp[b].label);
+          }
+        });
+        break;
+      case "feat":
+        break;
+      case "spell":
+        break;
+    }
+
+    return props.filter (p=>!!p);
+  }
+  /* -------------------------------------------- */ 
 
   /** @inheritDoc */
   _onChangeTab(event, tabs, active) {
